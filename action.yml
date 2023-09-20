@@ -9,13 +9,20 @@ inputs:
 
 outputs:
   result:
-    description: "Random number"
-    value: ${{ steps.step0 }}
+    description: "Your branch name"
+    value: ${{ steps.step0.outputs.result }}
 
 runs:
   using: "composite"
 
   steps:
-    - run: echo "Your branch is ${{ inputs.branch }}" >> $GITHUB_OUTPUT
+    - id: current-date
       shell: bash
-      id: step-0
+      run: echo "value=$(date '+%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+
+    - id: latest-commit-date
+      shell: bash
+      run: echo "value=$(git log -1 --format="%cs")" >> "$GITHUB_OUTPUT"
+
+    - shell: bash
+      run: echo "today ${{ steps.current-date.outputs.value }} - commit ${{ steps.latest-commit-date.outputs.value }}"
