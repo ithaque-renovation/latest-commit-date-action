@@ -1,0 +1,21 @@
+name: latest-commit-date
+description: "Get the date of the latest commit"
+
+inputs:
+  branch:
+    description: "Branch to get history from"
+    default: "main"
+    required: true
+
+outputs:
+  result:
+    description: "Random number"
+    value: ${{ steps.step0 }}
+
+runs:
+  using: "composite"
+
+  steps:
+    - run: echo "Your branch is ${{ inputs.branch }}" >> $GITHUB_OUTPUT
+      shell: bash
+      id: step-0
