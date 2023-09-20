@@ -1,16 +1,16 @@
 name: latest-commit-date
 description: "Get the date of the latest commit"
 
-inputs:
-  branch:
-    description: "Branch to get history from"
-    default: "main"
-    required: true
-
 outputs:
-  result:
-    description: "Your branch name"
-    value: ${{ steps.step0.outputs.result }}
+  current-date:
+    description: "Date at runtime"
+    value: ${{ steps.current-date.outputs.value }}
+  latest-commit-date:
+    description: "Date of latest commit in Git history"
+    value: ${{ steps.latest-commit-date.outputs.value }}
+  is-today:
+    description: "Defines is latest commit was pushed today"
+    value: ${{ steps.current-date.outputs.value }} == ${{ steps.latest-commit-date.outputs.value }}
 
 runs:
   using: "composite"
@@ -23,6 +23,3 @@ runs:
     - id: latest-commit-date
       shell: bash
       run: echo "value=$(git log -1 --format="%cs")" >> "$GITHUB_OUTPUT"
-
-    - shell: bash
-      run: echo "today ${{ steps.current-date.outputs.value }} - commit ${{ steps.latest-commit-date.outputs.value }}"
