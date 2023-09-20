@@ -1,6 +1,10 @@
 name: Latest commit date
 description: "An action to retrieve the date of the latest commit on a specified branch."
 
+branding:
+  icon: git-commit
+  color: gray-dark
+
 inputs:
   branch:
     description: "The name of the branch for which you want to retrieve the latest commit date. Default is 'main'."
