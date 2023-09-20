@@ -1,20 +1,20 @@
-name: latest-commit-date
-description: "Get the date of the latest commit on a specific branch"
+name: Latest commit date
+description: "An action to retrieve the date of the latest commit on a specified branch."
 
 inputs:
   branch:
-    description: "The branch to check history from"
+    description: "The name of the branch for which you want to retrieve the latest commit date. Default is 'main'."
     default: main
 
 outputs:
   current-date:
-    description: "Date at runtime"
+    description: "The current date at the time the action runs."
     value: ${{ steps.current-date.outputs.value }}
   latest-commit-date:
-    description: "Date of latest commit in Git history"
+    description: "The date of the latest commit in the Git history of the specified branch."
     value: ${{ steps.latest-commit-date.outputs.value }}
   is-today:
-    description: "Defines is latest commit was pushed today"
+    description: "A boolean indicating whether the current date and the latest commit date are the same (true) or different (false)."
     value: ${{ steps.is-today.outputs.value }}
 
 runs:
