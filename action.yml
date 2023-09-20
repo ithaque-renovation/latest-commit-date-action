@@ -1,5 +1,10 @@
 name: latest-commit-date
-description: "Get the date of the latest commit"
+description: "Get the date of the latest commit on a specific branch"
+
+inputs:
+  branch:
+    description: "The branch to check history from"
+    default: main
 
 outputs:
   current-date:
@@ -22,4 +27,4 @@ runs:
 
     - id: latest-commit-date
       shell: bash
-      run: echo "value=$(git log -1 --format="%cs")" >> "$GITHUB_OUTPUT"
+      run: echo "value=$(git log -1 --format="%cs" ${{ inputs.branch }})" >> "$GITHUB_OUTPUT"
