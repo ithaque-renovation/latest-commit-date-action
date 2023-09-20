@@ -15,7 +15,7 @@ outputs:
     value: ${{ steps.latest-commit-date.outputs.value }}
   is-today:
     description: "Defines is latest commit was pushed today"
-    value: ${{ steps.current-date.outputs.value }} == ${{ steps.latest-commit-date.outputs.value }}
+    value: ${{ steps.is-today.outputs.value }}
 
 runs:
   using: "composite"
@@ -28,3 +28,15 @@ runs:
     - id: latest-commit-date
       shell: bash
       run: echo "value=$(git log -1 --format="%cs" ${{ inputs.branch }})" >> "$GITHUB_OUTPUT"
+
+    - id: is-today
+      shell: bash
+      run: |
+        current_date=${{ steps.current-date.outputs.value }}
+        latest_commit_date=${{ steps.latest-commit-date.outputs.value }}
+
+        if [ "$current_date" == "$latest_commit_date" ]; then
+          echo "value=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "value=false" >> "$GITHUB_OUTPUT"
+        fi
