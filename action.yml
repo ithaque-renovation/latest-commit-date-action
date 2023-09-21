@@ -5,11 +5,6 @@ branding:
   icon: git-commit
   color: gray-dark
 
-inputs:
-  branch:
-    description: "The name of the branch for which you want to retrieve the latest commit date. Default is 'main'."
-    default: main
-
 outputs:
   current-date:
     description: "The current date at the time the action runs."
@@ -31,7 +26,7 @@ runs:
 
     - id: latest-commit-date
       shell: bash
-      run: echo "value=$(git log -1 --format="%cs" ${{ inputs.branch }})" >> "$GITHUB_OUTPUT"
+      run: echo "value=$(git log -1 --format="%cs")" >> "$GITHUB_OUTPUT"
 
     - id: is-today
       shell: bash

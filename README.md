@@ -1,10 +1,10 @@
 # Latest commit date
 
-This action checks the date of the latest commit in your Git history.
+This action checks the date of the latest commit in the Git history.
 
 ## Usage
 
-Add the action to your workflows like so:
+Add the action to your workflow like so:
 
 ```yml
 name: My GitHub Actions workflow
@@ -21,17 +21,17 @@ jobs:
       - uses: ithaque-renovation/latest-commit-date-action@v1
 ```
 
-### Inputs
-
-You can specify a `branch` input variable to check the commit history of a specific branch. Default value for `branch` is `main`.
+You can checkout a specific ref in the Checkout Action, this will impact which history is read by `latest-commit-date-action`.
+See [Checkout Action's documentation](https://github.com/actions/checkout) for more information on how to control the ref.
 
 ```yml
+# Example
 steps:
   - uses: actions/checkout@v3
+    with:
+      ref: my-feature-branch # Ref can be a branch, a SHA or a tag
 
   - uses: ithaque-renovation/latest-commit-date-action@v1
-    with:
-      branch: my-feature-branch
 ```
 
 ### Outputs
@@ -51,5 +51,5 @@ steps:
 Available outputs:
 
 - `current-date`: The current date at the time the action runs
-- `latest-commit-date`: The date of the latest commit in the Git history of the specified branch
+- `latest-commit-date`: The date of the latest commit in the Git history of the specified ref
 - `is-today`: A boolean indicating whether the current date and the latest commit date are the same (true) or different (false)
